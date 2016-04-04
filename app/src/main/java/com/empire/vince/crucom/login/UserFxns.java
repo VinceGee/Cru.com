@@ -17,7 +17,6 @@ import java.util.List;
 public class UserFxns {
 
     private JSONParser jsonParser;
-
     private static String forpass_tag = "forpass";
     private static String chgpass_tag = "chgpass";
 
