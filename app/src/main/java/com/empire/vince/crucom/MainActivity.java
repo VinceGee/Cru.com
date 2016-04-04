@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.empire.vince.crucom.build.MainActivityYeSimplistic;
 import com.empire.vince.crucom.dialogs.SweetAlertDialog;
@@ -55,6 +56,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View hView =  navigationView.getHeaderView(0);
+
+        TextView nameView = (TextView) hView.findViewById(R.id.nameView);
+        TextView emailView = (TextView) hView.findViewById(R.id.emailView);
 
         ////////////////////LOGOUT////////////////////////////////////////
 
@@ -74,6 +79,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         String name = user.get("name");
         String email = user.get("email");
+
+        nameView.setText(name);
+        emailView.setText(email);
 
 
     }
