@@ -33,8 +33,6 @@ public class UserFxns {
 
     public JSONObject chgPass( String nyowani, String email){
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-
-
         params.add(new BasicNameValuePair("tag", chgpass_tag));
         params.add(new BasicNameValuePair("nyowani", nyowani));
         params.add(new BasicNameValuePair("email", email));
