@@ -21,7 +21,6 @@ public class UserFxns {
     private static String forpass_tag = "forpass";
     private static String chgpass_tag = "chgpass";
 
-
     // constructor
     public UserFxns(){
         jsonParser = new JSONParser();
