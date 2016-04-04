@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/home"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_win"
+            android:icon="@drawable/win"
+            android:title="Win" />
+        <item
+            android:id="@+id/nav_build"
+            android:icon="@drawable/build"
+            android:title="Build" />
+        <item
+            android:id="@+id/nav_send"
+            android:icon="@drawable/send"
+            android:title="Send" />
+    </group>
+
+    <item android:title="My Account">
+        <menu>
+            <item
+                android:id="@+id/nav_password"
+                android:icon="@drawable/password"
+                android:title="Change Password" />
+            <item
+                android:id="@+id/nav_figures"
+                android:icon="@drawable/stats"
+                android:title="My Figures" />
+        </menu>
+    </item>
+
+    <item android:title="About Cru.com">
+        <menu>
+            <item
+                android:id="@+id/nav_abtcru"
+                android:icon="@drawable/ic_menu_share"
+                android:title="About Cru.com" />
+            <item
+                android:id="@+id/nav_abtapp"
+                android:icon="@drawable/about"
+                android:title="About Cru.com App" />
+        </menu>
+    </item>
+
+    <item android:title="Settings">
+        <menu>
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/settings"
+                android:title="Settings" />
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/logout"
+                android:title="Logout" />
+        </menu>
+    </item>
+
+
+
+</menu>

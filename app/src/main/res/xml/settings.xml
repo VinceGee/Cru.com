@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory android:title="Look and Feel">
+        <ListPreference
+            android:key="theme"
+            android:title="Theme"
+            android:entries="@array/themeEntries"
+            android:entryValues="@array/themeValues"
+            android:defaultValue="dark" />
+
+        <ListPreference
+            android:key="themeAccent"
+            android:title="Theme Accent"
+            android:entries="@array/themeAccentEntries"
+            android:entryValues="@array/themeAccentValues"
+            android:defaultValue="normal" />
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Share">
+
+        <Preference
+            android:key="rate_app"
+            android:summary="Liked the app? Rate it on Play Store"
+            android:title="Rate" />
+
+        <Preference
+            android:key="share_app"
+            android:summary="Liked the app? Share it with your friends"
+            android:title="Share" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
