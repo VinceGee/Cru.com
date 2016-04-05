@@ -62,8 +62,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         TextView emailView = (TextView) hView.findViewById(R.id.emailView);
 
         ////////////////////LOGOUT////////////////////////////////////////
-
-
         // SqLite database handler
         db = new SQLiteHandler(getApplicationContext());
 
