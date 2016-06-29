@@ -121,21 +121,14 @@ public class WinActivity extends Activity {
             public void onResponse(String response) {
                 Log.d(TAG, "Register Response: " + response.toString());
                 hideDialog();
-
-
-
                      {
-
-
-                        Toast.makeText(getApplicationContext(), "Win has been added successfully!", Toast.LENGTH_LONG).show();
+                         Toast.makeText(getApplicationContext(), "Win has been added successfully!", Toast.LENGTH_LONG).show();
 
                         // Launch login activity
                         Intent intent = new Intent(getApplicationContext(), WinActivity.class);
                         startActivity(intent);
                         finish();
                     }
-
-
             }
         }, new Response.ErrorListener() {
 
