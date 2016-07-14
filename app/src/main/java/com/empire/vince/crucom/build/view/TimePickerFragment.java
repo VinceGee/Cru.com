@@ -16,7 +16,7 @@ import java.util.Date;
 
 import com.empire.vince.crucom.AppController;
 import com.empire.vince.crucom.build.model.Task;
-import com.squareup.leakcanary.RefWatcher;
+
 
 /**
  * Show a dialog with a time picker.
@@ -54,8 +54,8 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
     @Override
     public void onDestroy() {
         super.onDestroy();
-        RefWatcher refWatcher = AppController.getRefWatcher(getParentFragment().getActivity());
-        refWatcher.watch(this);
+        //RefWatcher refWatcher = AppController.getRefWatcher(getParentFragment().getActivity());
+        //refWatcher.watch(this);
     }
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {

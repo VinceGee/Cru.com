@@ -28,7 +28,7 @@ import java.util.Date;
 import com.empire.vince.crucom.AppController;
 import com.empire.vince.crucom.R;
 import com.empire.vince.crucom.build.model.Task;
-import com.squareup.leakcanary.RefWatcher;
+
 
 
 /**
@@ -126,8 +126,8 @@ public class EditTaskFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onDestroy() {
         super.onDestroy();
-        RefWatcher refWatcher = AppController.getRefWatcher(getActivity());
-        refWatcher.watch(this);
+        //RefWatcher refWatcher = AppController.getRefWatcher(getActivity());
+        //refWatcher.watch(this);
     }
 
     @Override

@@ -24,7 +24,7 @@ import com.empire.vince.crucom.AppController;
 import com.empire.vince.crucom.R;
 import com.empire.vince.crucom.build.controller.TaskAdapter;
 import com.empire.vince.crucom.build.model.Task;
-import com.squareup.leakcanary.RefWatcher;
+
 
 /**
  * Implements the GUI for displaying a list of tasks.
@@ -87,8 +87,8 @@ public class TasksFragment extends Fragment implements TaskAdapter.ItemActionLis
     @Override
     public void onDestroy() {
         super.onDestroy();
-        RefWatcher refWatcher = AppController.getRefWatcher(getActivity());
-        refWatcher.watch(this);
+        //RefWatcher refWatcher = AppController.getRefWatcher(getActivity());
+        //refWatcher.watch(this);
     }
 
     //ItemActionListener callbacks

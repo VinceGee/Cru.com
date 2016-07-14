@@ -1,15 +1,12 @@
 package com.empire.vince.crucom;
 
 import android.app.Application;
-import android.content.Context;
 import android.text.TextUtils;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -34,13 +31,13 @@ public class AppController extends Application {
 
     public static final Gson gson = new Gson();
 
-    private RefWatcher refWatcher;
+   // private RefWatcher refWatcher;
 
     @Override
     public void onCreate() {
         super.onCreate();
         mInstance = this;
-        refWatcher = LeakCanary.install(this);
+        //refWatcher = LeakCanary.install(this);
     }
 
     public static synchronized AppController getInstance() {
@@ -72,11 +69,11 @@ public class AppController extends Application {
         }
     }
 
-    public static RefWatcher getRefWatcher(Context context) {
+   /* public static RefWatcher getRefWatcher(Context context) {
         AppController application = (AppController) context.getApplicationContext();
         return application.refWatcher;
     }
-
+*/
 
 
     /**
