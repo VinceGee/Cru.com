@@ -1,9 +1,12 @@
 package com.empire.vince.crucom;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,16 +17,24 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.empire.vince.crucom.build.MainActivityYeSimplistic;
 import com.empire.vince.crucom.dialogs.SweetAlertDialog;
 import com.empire.vince.crucom.login.ChangePassword;
 import com.empire.vince.crucom.login.LoginActivity;
 import com.empire.vince.crucom.login.SQLiteHandler;
 import com.empire.vince.crucom.login.SessionManager;
+import com.empire.vince.crucom.login.Wins;
 import com.empire.vince.crucom.win.WinActivity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -31,6 +42,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private SQLiteHandler db;
     private SessionManager session;
+    private ProgressDialog pDialog;
+    private static final String TAG = MainActivity.class.getSimpleName();
+    private static int countWinsList;
+    private static int countWinsVerification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +83,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // session manager
         session = new SessionManager(getApplicationContext());
 
+        // Progress dialog
+        pDialog = new ProgressDialog(this);
+        pDialog.setCancelable(false);
+
         if (!session.isLoggedIn()) {
             logoutUser();
         }
@@ -81,6 +100,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         nameView.setText(name);
         emailView.setText(email);
 
+
+        if(!db.isContentEmpty()){
+            if(isInternetOn()){
+
+                ArrayList<Wins>  wins = db.getSavedDetails();
+                countWinsList = wins.size();
+                for(Wins wns : wins){
+                    String sname = wns.getName();
+                    String swinmeth = wns.getWinmeth() ;
+                    String semail = wns.getEmail();
+                    String sno = wns.getNo();
+                    String swinner = wns.getWinner();
+                    String spassword = wns.getPassword();
+                    countWinsVerification+=1;
+
+
+                    addWin(sname, semail, spassword, sno, swinner, swinmeth);
+                }
+
+
+                db.deleteSavedContent();
+              //  Toast.makeText(getApplicationContext(),"Win updated",Toast.LENGTH_LONG).show();
+            }
+        }
+      //
 
     }
 
@@ -235,4 +279,99 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
         finish();
     }
+
+    //check internet connection
+    public boolean isInternetOn() {
+
+        // get Connectivity Manager object to check connection
+        ConnectivityManager connec =
+                (ConnectivityManager) getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
+
+        // Check for network connections
+        if (connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
+                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
+                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
+                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED) {
+
+
+            return true;
+
+        } else if (
+                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
+                        connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED) {
+
+
+            return false;
+        }
+        return false;
+    }
+
+
+    /**
+     * Function to store user in MySQL database will post params(tag, name,
+     * email, password) to register url
+     * */
+    private void addWin(final String name, final String email, final String password, final String pnumber,final String winner, final String winmeth) {
+        // Tag used to cancel the request
+        String tag_string_req = "winning";
+
+       // pDialog.setMessage("Adding your win...");
+       // showDialog();
+
+        StringRequest strReq = new StringRequest(Request.Method.POST, AppConfig.URL_WIN, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Register Response: " + response.toString());
+             //   hideDialog();
+                {
+                    if(countWinsList == countWinsVerification)
+                        Toast.makeText(getApplicationContext(), "Win has been added successfully!", Toast.LENGTH_SHORT).show();
+
+                    // Launch login activity
+                   /* Intent intent = new Intent(getApplicationContext(), WinActivity.class);
+                    startActivity(intent);
+                    finish();*/
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Registration Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                //hideDialog();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting params to register url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("name", name);
+                params.put("email", email);
+                params.put("password", password);
+                params.put("pnumber", pnumber);
+                params.put("winner", winner);
+                params.put("winmeth", winmeth);
+
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    /*private void showDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hideDialog() {
+        if (pDialog.isShowing())
+            pDialog.dismiss();
+    }*/
 }

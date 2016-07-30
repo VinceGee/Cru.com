@@ -3,6 +3,7 @@ package com.empire.vince.crucom.win;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -50,6 +51,7 @@ public class WinActivity extends Activity {
     private SQLiteHandler db;
     String winmeth;
     String winner;
+    private Button mConfirm;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,7 @@ public class WinActivity extends Activity {
         win_spinner = (Spinner) findViewById(R.id.win_spinner);
 
         btnWin = (Button) findViewById(R.id.btnWin);
+       // mConfirm = (Button) findViewById(R.id.btnConfirm);
 
         // Progress dialog
         pDialog = new ProgressDialog(this);
@@ -94,13 +97,33 @@ public class WinActivity extends Activity {
 
 
                 if (!name.isEmpty() && !email.isEmpty() && !pnumber.isEmpty() && !password.isEmpty() && !winmeth.isEmpty()) {
-                    addWin(name,email,password, pnumber, winner, winmeth);
+                    if(isInternetOn()) {
+                        addWin(name, email, password, pnumber, winner, winmeth);
+                    }else{
+                        db.addSavedContent(name,winmeth,email,password,pnumber,winner);
+                        win_name.setText("");
+                        win_email.setText("");
+                        win_password.setText("");
+                        win_number.setText("");
+
+                        Toast.makeText(getApplicationContext(),"Successfully Saved",Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     Toast.makeText(getApplicationContext(), "You have to fill in all details", Toast.LENGTH_LONG).show();
                 }
             }
         });
+     /*   mConfirm.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                // Fetching user details from SQLite
+                final HashMap<String, String> saved = db.getSacedContentDetails();
 
+                String username = saved.get("name");
+                String email = saved.get("email");
+
+                Toast.makeText(getApplicationContext(),username+" "+email,Toast.LENGTH_LONG).show();
+            }
+        });*/
         init();
     }
 
@@ -192,5 +215,30 @@ public class WinActivity extends Activity {
             }
         });
 
+    }
+
+    public boolean isInternetOn() {
+
+        // get Connectivity Manager object to check connection
+        ConnectivityManager connec =
+                (ConnectivityManager) getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
+
+        // Check for network connections
+        if (connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
+                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
+                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
+                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED) {
+
+
+            return true;
+
+        } else if (
+                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
+                        connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED) {
+
+
+            return false;
+        }
+        return false;
     }
 }

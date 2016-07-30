@@ -3,7 +3,7 @@ package com.empire.vince.crucom;
 public class AppConfig {
 
     // Server base url
-    public static final String BASE_URL = "http://192.168.88.19/cru";
+    public static final String BASE_URL = "http://192.168.88.20/cru";
 
     // Server user login url
     public static final String URL_LOGIN = BASE_URL + "/login.php";
