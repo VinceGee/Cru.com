@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorAccent_Blue"
     android:windowBackground="@color/colorPrimary">
 
     <LinearLayout
@@ -19,7 +19,8 @@
             android:layout_width="wrap_content"
             android:layout_height="72dp"
             android:layout_marginBottom="24dp"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/logo"/>
 
         <!--  Email Label -->
         <com.empire.vince.crucom.stuff.MaterialTextField
@@ -36,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#000"
                 android:hint="Email"
-                android:textColorHint="@color/colorAccent"/>
+                android:textColorHint="#000"/>
         </com.empire.vince.crucom.stuff.MaterialTextField>
 
         <!--  Password Label -->

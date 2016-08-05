@@ -21,7 +21,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     // All Static variables
 	// Database Version
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 
 	// Database Name
 	private static final String DATABASE_NAME = "cru.com";
@@ -235,7 +235,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 	public boolean isContentEmpty(){
 		SQLiteDatabase db = this.getWritableDatabase();
 		boolean empty = true;
-		Cursor cur = db.rawQuery("SELECT COUNT(*) FROM "+TABLE_SAVED_CONTENT, null);
+		Cursor cur = db.rawQuery("SELECT COUNT(*) FROM "+ TABLE_SAVED_CONTENT, null);
 		if (cur != null && cur.moveToFirst()) {
 			empty = (cur.getInt (0) == 0);
 		}
