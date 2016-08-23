@@ -22,7 +22,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="CRU.com"
+        android:text="CRU.comm"
+        android:textColor="#000"
         android:id="@+id/nameView"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -30,6 +31,7 @@
         android:id="@+id/emailView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#000"
         android:text="android.studio@android.com"
 
         />

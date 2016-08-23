@@ -23,6 +23,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.empire.vince.crucom.build.MainActivityYeSimplistic;
 import com.empire.vince.crucom.dialogs.SweetAlertDialog;
 import com.empire.vince.crucom.login.ChangePassword;
@@ -30,6 +32,8 @@ import com.empire.vince.crucom.login.LoginActivity;
 import com.empire.vince.crucom.login.SQLiteHandler;
 import com.empire.vince.crucom.login.SessionManager;
 import com.empire.vince.crucom.login.Wins;
+import com.empire.vince.crucom.slider.ChildAnimationExample;
+import com.empire.vince.crucom.slider.SliderLayout;
 import com.empire.vince.crucom.win.WinActivity;
 
 import java.util.ArrayList;
@@ -37,9 +41,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
-
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, BaseSliderView.OnSliderClickListener{
+    SliderLayout mDemoSlider;
     private SQLiteHandler db;
     private SessionManager session;
     private ProgressDialog pDialog;
@@ -53,15 +56,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -126,6 +120,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
       //
 
+        //        ******slider***********
+        mDemoSlider = (SliderLayout)findViewById(R.id.slider);
+
+        HashMap<String,Integer> file_maps = new HashMap<String, Integer>();
+        file_maps.put("1", R.drawable.s1);
+        file_maps.put("2",R.drawable.s2);
+        file_maps.put("3", R.drawable.s3);
+        file_maps.put("4", R.drawable.s4);
+
+        for(String iname : file_maps.keySet()){
+            TextSliderView textSliderView = new TextSliderView(this);
+            // initialize a SliderLayout
+            textSliderView
+                    //  .description(name)
+                    .image(file_maps.get(iname))
+                    .setScaleType(BaseSliderView.ScaleType.CenterCrop)
+                    .setOnSliderClickListener(this);
+
+
+            textSliderView.bundle(new Bundle());
+            textSliderView.getBundle().putString("extra", iname);
+
+            mDemoSlider.addSlider(textSliderView);
+        }
+        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Default);
+        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+        mDemoSlider.setCustomAnimation(new ChildAnimationExample());
+        mDemoSlider.setDuration(4000);
+        mDemoSlider.addOnPageChangeListener(this);
+
+
+    }
+
+    @Override
+    public void onSliderClick(BaseSliderView slider) {
+
     }
 
     @Override
@@ -158,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }else if(id == R.id.menu_logout){
             new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
                     .setCustomImage(R.mipmap.ic_launcher)
-                    .setTitleText("Cru.com")
+                    .setTitleText("Cru.comm")
                     .setContentText("Are you sure you want to logout?")
                     .setCancelText("No,cancel please!")
                     .setConfirmText("Logout!")
@@ -167,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         @Override
                         public void onClick(SweetAlertDialog sDialog) {
                             // reuse previous dialog instance, keep widget user state, reset them if you need
-                            sDialog.setTitleText("Cru.com")
+                            sDialog.setTitleText("Cru.comm")
                                     .setContentText("You have cancelled the logout")
                                     .setConfirmText("OK")
                                     .showCancelButton(false)
@@ -231,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
                     .setCustomImage(R.mipmap.ic_launcher)
-                    .setTitleText("Cru.com")
+                    .setTitleText("Cru.comm")
                     .setContentText("Are you sure you want to logout?")
                     .setCancelText("No,cancel please!")
                     .setConfirmText("Logout!")
@@ -240,7 +270,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         @Override
                         public void onClick(SweetAlertDialog sDialog) {
                             // reuse previous dialog instance, keep widget user state, reset them if you need
-                            sDialog.setTitleText("Cru.com")
+                            sDialog.setTitleText("Cru.comm")
                                     .setContentText("You have cancelled the logout")
                                     .setConfirmText("OK")
                                     .showCancelButton(false)

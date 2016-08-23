@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Cru.com</string>
+    <string name="app_name">Cru.comm</string>
 
     <string name="btn_link_to_register">Not a member? Sign up now.</string>
     <string name="btn_link_to_login">Already registered! Login Here.</string>
@@ -74,4 +74,6 @@
     <string name="dialog_default_title">Here\'s a message!</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">Cancel</string>
+    <string name="verse1">2 Tim 2: 2 The things which you have heard from me in the presence of many witnesses, entrust these to faithful men who will be able to teach others also.</string>
+    <string name="verse2">Matthew  28:19 Go therefore and make disciples of all the nations, baptizing them in the name of the Father and the Son and the Holy Spirit, 20 teaching them to observe all that I commanded you; and lo, I am with you always, even to the end of the age.”</string>
 </resources>

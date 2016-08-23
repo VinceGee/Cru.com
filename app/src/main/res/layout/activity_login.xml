@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
-    android:background="@color/colorAccent_Blue"
+    android:background="#888788"
     android:windowBackground="@color/colorPrimary">
 
     <LinearLayout
